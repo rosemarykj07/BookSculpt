@@ -1,0 +1,127 @@
+<!-- {% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Available Books</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+   body {
+  background: linear-gradient(135deg, #e0f0ff, #f9fcff);
+}
+
+
+
+    /* body { font-family: Arial, sans-serif; margin:0; background:#f9f9f9; } */
+    .navbar { background:#004080; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; color:#fff; }
+    .navbar .logo { font-size:20px; font-weight:bold; }
+    .navbar ul { list-style:none; margin:0; padding:0; display:flex; }
+    .navbar ul li { margin-left:20px; }
+    .navbar ul li a { color:#fff; text-decoration:none; font-weight:bold; }
+
+    .container { max-width:1100px; margin:30px auto; padding:20px; background:#fff; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+    h2 { text-align:center; margin-bottom:20px; }
+
+    .book-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+    .book-card { background:#fafafa; padding:15px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); transition:.3s; }
+    .book-card:hover { transform:translateY(-5px); }
+    .book-card h3 { margin:0 0 10px; }
+    .btn { display:inline-block; background:#004080; color:#fff; padding:8px 12px; border-radius:6px; text-decoration:none; margin-top:10px; }
+    .btn:hover { background:#0066cc; }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">BookSculpt</div>
+    <ul>
+      <li><a href="/userHome/">Home</a></li>
+      <li><a href="{% url 'my_reading_list' %}">My Reading Lists</a></li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <h2>Available Books</h2>
+    <div class="book-grid">
+      {% for book in books %}
+      <div class="book-card">
+        <h3>{{ book.title }}</h3>
+        <p><b>Author:</b> {{ book.author }}</p>
+        <p>{{ book.description|truncatewords:20 }}</p>
+        <a href="{% url 'add_to_reading_list' book.id %}" class="btn"><i class="fa fa-plus"></i> Add to Reading List</a>
+      </div>
+      {% empty %}
+      <p>No books available right now.</p>
+      {% endfor %}
+    </div>
+  </div>
+  
+</body>
+</html> -->
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Available Books</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+   body {
+      background: linear-gradient(135deg, #e0f0ff, #f9fcff);
+      font-family: Arial, sans-serif;
+      margin: 0;
+   }
+
+   .navbar { background:#004080; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; color:#fff; }
+   .navbar .logo { font-size:20px; font-weight:bold; }
+   .navbar ul { list-style:none; margin:0; padding:0; display:flex; }
+   .navbar ul li { margin-left:20px; }
+   .navbar ul li a { color:#fff; text-decoration:none; font-weight:bold; }
+
+   .container { max-width:1100px; margin:30px auto; padding:20px; background:#fff; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+   h2 { text-align:center; margin-bottom:20px; }
+
+   .book-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+   .book-card { background:#fafafa; padding:15px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); transition:.3s; }
+   .book-card:hover { transform:translateY(-5px); }
+   .book-card h3 { margin:0 0 10px; }
+   .btn { display:inline-block; background:#004080; color:#fff; padding:8px 12px; border-radius:6px; text-decoration:none; margin-top:10px; }
+   .btn:hover { background:#0066cc; }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">BookSculpt</div>
+    <ul>
+      <li><a href="/userHome/">Home</a></li>
+      <li><a href="{% url 'my_readingList' %}">My Reading Lists</a></li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <h2>Available Books</h2>
+    <div class="book-grid">
+      {% for book in books %}
+      <div class="book-card">
+        <h3>{{ book.title }}</h3>
+        <p><b>Author:</b> {{ book.author }}</p>
+        <p>{{ book.description|truncatewords:20 }}</p>
+
+        {% if request.user.register_tbl.type == "user" %}
+          <!-- Free user -->
+          <a href="#" onclick="alert('Only subscribed users can create a reading list.')" class="btn">
+            <i class="fa fa-lock"></i> Add to Reading List
+          </a>
+        {% else %}
+          <!-- Subscribed user -->
+        <a href="{% url 'add_to_reading_list' book.id %}" class="btn">
+          <i class="fa fa-plus"></i> Add to Reading List
+        </a>
+
+        {% endif %}
+      </div>
+      {% empty %}
+      <p>No books available right now.</p>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>

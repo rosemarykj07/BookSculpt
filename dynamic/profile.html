@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            color: #333;
+        }
+        .navbar {
+            background-image: linear-gradient(315deg, #6a11cb 0%, #2575fc 74%);
+            padding: 15px;
+            color: white;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+        }
+        .profile-card {
+            max-width: 420px;
+            margin: 40px auto;
+            padding: 25px;
+            border-radius: 15px;
+            background: white;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 4px solid #2575fc;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+        .profile-card h2 {
+            margin: 10px 0;
+            color: #6a11cb;
+            font-size: 24px;
+        }
+        .profile-card p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+        .label {
+            font-weight: bold;
+            color: #444;
+        }
+        /* Badge for type */
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            margin-top: 8px;
+        }
+        .badge.admin { background: #e74c3c; }   /* red */
+        .badge.user { background: #27ae60; }    /* green */
+        .badge.manager { background: #f39c12; } /* orange */
+        
+        .edit-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: linear-gradient(90deg, #ff6a00, #ee0979);
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        .edit-btn:hover {
+            background: linear-gradient(90deg, #ee0979, #ff6a00);
+            transform: scale(1.05);
+        }
+        @media (max-width: 500px) {
+            .profile-card {
+                margin: 20px;
+                padding: 20px;
+            }
+            .navbar {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">📚 My Profile</div>
+    <div class="profile-card">
+        {% if user.profile_pic %}
+            <img src="{{ user.profile_pic.url }}" alt="Profile Avatar" class="avatar">
+        {% else %}
+            <img src="https://via.placeholder.com/110?text={{ user.fname|slice:':1' }}{{ user.lname|slice:':1' }}" 
+                 alt="Profile Avatar" class="avatar">
+        {% endif %}
+        
+        <h2>{{ user.fname }} {{ user.lname }}</h2>
+        <p><span class="label">Email:</span> {{ user.email }}</p>
+        <!-- <div class="badge {{ user.type|lower }}">{{ user.type|title }}</div> -->
+
+        <a href="{% url 'edit_profile' %}" class="edit-btn">✏️ Edit Profile</a>
+    </div>
+</body>
+</html>

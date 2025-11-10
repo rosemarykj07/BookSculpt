@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Subscription</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e0f0ff, #f9fcff);
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #004080;
+    }
+    .info {
+      text-align: left;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .info strong {
+      color: #333;
+    }
+    .status-active {
+      color: green;
+      font-weight: bold;
+    }
+    .status-expired {
+      color: red;
+      font-weight: bold;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: #004080;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #0066cc;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>My Subscription</h2>
+    {% if subscription %}
+      <p class="info"><strong>Plan:</strong> {{ subscription.plan.name }}</p>
+      <p class="info"><strong>Price:</strong> ₹{{ subscription.plan.price }}</p>
+      <p class="info"><strong>Start:</strong> {{ subscription.start_date|date:"Y-m-d H:i" }}</p>
+      <p class="info"><strong>End:</strong> {{ subscription.end_date|date:"Y-m-d H:i" }}</p>
+      <p class="info">
+        <strong>Status:</strong>
+        {% if subscription.is_active %}
+          <span class="status-active">Active ✅</span>
+        {% else %}
+          <span class="status-expired">Expired ❌</span>
+        {% endif %}
+      </p>
+    {% else %}
+      <p>You don't have an active subscription.</p>
+      <a href="{% url 'view_plans' %}" class="btn">View Plans</a>
+    {% endif %}
+  </div>
+</body>
+</html>

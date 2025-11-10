@@ -1,0 +1,152 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/addbook.css'%}">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      background-attachment: fixed;
+      background-size: cover;
+      min-height: 100vh;
+    }
+
+          .navbar {
+        background-color: #1b1b32;
+        /* background: linear-gradient(to right, #6a11cb, #2575fc); */
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar h1 {
+        font-size: 24px;
+        margin: 0;
+        margin-right: auto; /* Pushes menu to the right */
+      }
+
+      .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      .navbar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        transition: color 0.3s;
+      }
+
+      .navbar ul li a:hover {
+        color: #ffcc00;
+      }
+        
+    .container {
+      max-width: 300px;
+      margin: 80px auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      background-color: #004080;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #003060;
+    }
+
+    @media (max-width: 500px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .container {
+        margin: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <h1>BookSculpt</h1>
+    <ul>
+      <!-- <li><a href="#">HOME</a></li> -->
+      <li><a href="/adminHome/">BACK</a></li>
+    </ul>
+  </div>
+    <head>
+        <meta charset="UTF-8" />
+        <title>AADD BOOKS</title>
+        <link rel="stylesheet" href="./styles.css" />
+    </head>
+    <body>
+        <h1>Registration Form</h1>
+        <form method="post" enctype="multipart/form-data">
+          <h1 style="color: #ccc;">{{book}}</h1>
+          {% csrf_token %}
+            <fieldset>
+                <label for="title">Title of the book: <input id="first-name" name="tle" type="text" required /></label>
+                <label for="author-name">Author of the book: <input id="last-name" name="aut" type="text" required /></label>
+                <label for="cover-image">Cover image: <input id="email" name="coimg" type="file" required /></label>
+                <label for="new-password">Category: <input id="new-password" name="cat" type="text"  required /></label>
+                <label for="description">Description: <input id="email" name="des" type="text" required /></label>
+                <label for="pdf-file">PDF File: <input id="email" name="pdf" type="file" required /></label>
+            </fieldset>
+            <input type="submit" value="Submit" />
+        </form>
+    </body>
+</html>

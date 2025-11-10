@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      margin: 0;
+      padding: 0;
+    }
+    .form-container {
+      max-width: 450px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    input[type="text"], input[type="email"], input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #2575fc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #6a11cb;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>✏️ Edit Profile</h2>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="text" name="fname" value="{{ user.fname }}" placeholder="First Name" required>
+      <input type="text" name="lname" value="{{ user.lname }}" placeholder="Last Name" required>
+      <input type="email" name="email" value="{{ user.email }}" placeholder="Email" required>
+      <input type="file" name="profile_pic">
+
+      <button type="submit" class="btn">Save Changes</button>
+    </form>
+  </div>
+</body>
+</html>

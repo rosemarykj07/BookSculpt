@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Plans</title>
+
+    <style>
+      html, body {
+    height: 100%;
+    margin: 0;
+    }
+
+    body {
+    background: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+    background-color: #fdfdfd; /* fallback base */
+    }
+        /* body{
+            background-color:beige;
+        } */
+        /* Navbar container */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #004080;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    /* Logo / site title */
+    .navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    /* Navigation links */
+    .navbar ul {
+      list-style-type: none;
+      margin-right: 10px;
+      padding: 0;
+      display: flex;
+    }
+
+    .navbar ul li {
+      margin-left: 20px;
+    }
+
+    .navbar ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffcc00;
+    }
+
+    /* Responsive for small screens */
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .navbar ul li {
+        margin: 10px 0;
+      }
+    }
+        body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+  }
+
+  .plans-container {
+    display: flex;
+    justify-content: center;   /* center horizontally */
+    align-items: flex-start;   /* align at top */
+    gap: 20px;
+    flex-wrap: wrap;
+    min-height: 80vh;
+  }
+
+  .plan-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 250px;             /* fixed width */
+    min-height: 300px;        /* ensures equal height */
+    display: flex;
+    flex-direction: column;   /* stack content vertically */
+    justify-content: space-between; /* keeps button at bottom */
+    transition: transform .3s;
+  }
+
+  .plan-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .subscribe-btn {
+    display: inline-block;
+    background: #004080;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: auto; /* pushes button to bottom */
+  }
+
+  .subscribe-btn:hover {
+    background: #0066cc;
+  }
+
+  .active-plan {
+  background: #e6ffe6;
+  border: 2px solid #28a745;
+  padding: 15px;
+  margin: 20px auto;
+  border-radius: 10px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.no-plan {
+  background: #ffe6e6;
+  border: 2px solid #ff4d4d;
+  padding: 15px;
+  margin: 20px auto;
+  border-radius: 10px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+    </style>
+</head>
+  <div class="navbar">
+    <div class="logo">📚 BookSculpt</div>
+    <ul>
+      <li><a href="/userHome/">Back</a></li>
+  
+    </ul>
+  </div>
+  
+<body>
+  <h2 style="text-align:center; margin-bottom:20px;">Choose Your Subscription Plan</h2>
+
+  <!-- Show current plan if exists -->
+  {% if subscription %}
+  <div class="active-plan">
+    <h3>Your Current Plan</h3>
+    <p><b>Plan:</b> {{ subscription.plan.name }}</p>
+    <p><b>Price:</b> ${{ subscription.plan.price }}</p>
+    <p><b>Started on:</b> {{ subscription.start_date|date:"Y-m-d" }}</p>
+    <p><b>Expires on:</b> {{ subscription.end_date|date:"Y-m-d" }}</p>
+
+    <p>
+      <b>Status:</b>
+      {% if subscription.is_active %}
+        <span style="color:green;font-weight:bold;">Active ✅</span>
+      {% else %}
+        <span style="color:red;font-weight:bold;">Expired ❌</span>
+      {% endif %}
+    </p>
+  </div>
+  {% else %}
+  <!-- If no active subscription -->
+  <div class="no-plan">
+    <h3 style="text-align:center; color:red;">No Active Plan</h3>
+  </div>
+  {% endif %}
+
+  <!-- Show all available plans -->
+  <div class="plans-container">
+    {% for plan in plans %}
+    <div class="plan-card">
+      <h3>{{ plan.name }}</h3>
+      <p><b>Price:</b> ${{ plan.price }}</p>
+      <p><b>Duration:</b> {{ plan.duration_days }} days</p>
+      <p><b>Features:</b> {{ plan.features }}</p>
+      <a href="{% url 'subscribe' plan.id %}" class="subscribe-btn">Subscribe</a>
+    </div>
+    {% empty %}
+    <p>No plans available right now.</p>
+    {% endfor %}
+  </div>
+</body>
+
+</html>
+
+

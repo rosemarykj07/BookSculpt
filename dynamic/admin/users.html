@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<link rel="stylesheet" href="{% static 'css/users.css' %}">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>view users</title>
+  <style>
+    /* Navbar container */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #004080;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    /* Logo / site title */
+    .navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    /* Navigation links */
+    .navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    .navbar ul li {
+      margin-left: 20px;
+    }
+
+    .navbar ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffcc00;
+    }
+
+    /* Responsive for small screens */
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .navbar ul li {
+        margin: 10px 0;
+      }
+    }
+    body{
+  background-color: cadetblue;
+  }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">📚 BookSculpt</div>
+    <ul>
+      <li><a href="/adminHome/">Back</a></li>
+      <!-- <li><a href="/books/">Books</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/login/">Login</a></li> -->
+      <!-- <li><a href="/register/">Register</a></li> -->
+    </ul>
+  </div>
+<center><h1>REGISTERED USERES</h1></center>
+<table class="responstable">
+  
+  <tr>
+   <th>FIRST NAME</th>
+   <th>LAST NAME</th>
+    <th>EMAIL</th>
+    <th>PASSWORD</th>
+    <th>ACTION</th>
+  </tr>
+
+{% for m in data %}
+  <tr>
+    <td>{{m.fname}}</td>
+    <td>{{m.lname}}</td>
+    <td>{{m.email}}</td>
+    <td>{{m.password}}</td>
+    <td><button><a style="text-decoration: none;" href="/edit?idn={{m.id}}">Edit</a></button><button  ><a style="text-decoration: none;" href="/delete?idn={{m.id}}">Delete</a></button></td>
+  </tr>
+{% endfor %}
+
+</table>
+<style>
+
+</style>

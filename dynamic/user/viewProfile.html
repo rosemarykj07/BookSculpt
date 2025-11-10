@@ -1,0 +1,32 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/userProfile.css' %}">
+<div class="card-container">
+{% for m in profile %}
+    {% if profile in profile_picture %}
+    <img class="round" src="{{ m.profile_picture.url }}" alt="{{ m.name }}" />
+    {% else %}
+    <img class="round" src="{% static 'images/default-avatar.png' %}" alt="Default avatar">
+    {% endif %}
+    <h3>{{ m.name }}</h3>
+    <h6>{{ m.email }}</h6>
+    <p>Favorite Genre: {{ m.favorite_genre }}<br/>Favorite Author: {{ m.favorite_author }}</p>
+    <div class="buttons">
+        <button class="primary">Update</button>
+        <button class="primary ghost">Remove</button>
+    </div>
+    <div class="skills">
+        <!-- If you have skills, loop them here -->
+    </div>
+{% endfor %}
+</div>
+
+<footer>
+	<p>
+		Created with <i class="fa fa-heart"></i> by
+		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+		- Read how I created this
+		<a target="_blank" href="https://florin-pop.com/blog/2019/04/profile-card-design">here</a>
+		- Design made by
+		<a target="_blank" href="https://dribbble.com/shots/6276930-Profile-Card-UI-Design">Ildiesign</a>
+	</p>  
+</footer>

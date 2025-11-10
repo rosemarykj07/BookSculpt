@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Plan</title>
+  <style>
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #2c3e50;
+      padding: 10px 20px;
+      color: #fff;
+    }
+    .navbar h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+    .navbar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    .navbar ul li {
+      margin-left: 15px;
+    }
+    .navbar ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    .navbar ul li a:hover {
+      color: #f39c12;
+    }
+
+    /* Form Container */
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+      font-family: Arial, sans-serif;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 10px 0 5px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #3498db;
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #3498db;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    .back-link:hover {
+      color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>📚 Subscription Admin</h1>
+    <ul>
+      <li><a href="{% url 'manage_plans' %}">Manage Plans</a></li>
+      <li><a href="#">Reports</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Form -->
+  <div class="container">
+    <h2>Edit Subscription Plan</h2>
+    <form method="post">
+      {% csrf_token %}
+      <label>Name:</label>
+      <input type="text" name="name" value="{{ plan.name }}" required>
+
+      <label>Description:</label>
+      <textarea name="description" required>{{ plan.description }}</textarea>
+
+      <label>Price:</label>
+      <input type="number" step="0.01" name="price" value="{{ plan.price }}" required>
+
+      <label>Duration (days):</label>
+      <input type="number" name="duration_days" value="{{ plan.duration_days }}" required>
+
+      <label>Features (comma separated):</label>
+      <textarea name="features">{{ plan.features }}</textarea>
+
+      <label>
+        <input type="checkbox" name="is_active" {% if plan.is_active %}checked{% endif %}> Active
+      </label>
+
+      <button type="submit">Update Plan</button>
+    </form>
+
+    <a href="{% url 'manage_plans' %}" class="back-link">← Back to Plans</a>
+  </div>
+</body>
+</html>

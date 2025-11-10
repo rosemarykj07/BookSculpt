@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upgrade Required</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8f9fa; text-align: center; padding: 50px; }
+        .box {
+            background: white; padding: 30px; border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: inline-block;
+        }
+        h2 { color: #dc3545; }
+        p { color: #333; }
+        a {
+            display: inline-block; margin-top: 15px; padding: 10px 20px;
+            background: #28a745; color: white; text-decoration: none; border-radius: 5px;
+        }
+        a:hover { background: #218838; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Upgrade to Continue</h2>
+        <p>{{ message }}</p>
+        <a href="{% url 'view_plans' %}">See Subscription Plans</a>
+    </div>
+</body>
+</html>

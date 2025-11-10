@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Plans</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #004080;
+            padding: 12px 24px;
+            color: white;
+        }
+
+        .navbar .logo {
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            display: inline;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            color: #ffcc00;
+        }
+
+        .navbar .user-info {
+            font-size: 14px;
+        }
+
+        /* Table styles */
+        table { width: 90%; border-collapse: collapse; margin-top: 20px; margin-left: 40px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #333; color: white; }
+        a.button { padding: 5px 10px; margin: 2px; text-decoration: none; border-radius: 5px; }
+        .edit { background: #4CAF50; color: white; }
+        .delete { background: #f44336; color: white; }
+        .add { background: #008CBA; color: white; display: inline-block; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">📚 BookSculpt</div>
+        <ul>
+            <li><a href="/adminHome/">Home</a></li>
+        </ul>
+        
+    </div>
+
+    <h2>Manage Subscription Plans</h2>
+
+    <a href="{% url 'add_plan' %}" class="button add">+ Add New Plan</a>
+ <div class="table" >
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Duration (days)</th>
+            <th>Features</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for plan in plans %}
+        <tr>
+            <td>{{ plan.name }}</td>
+            <td>${{ plan.price }}</td>
+            <td>{{ plan.duration_days }}</td>
+            <td>{{ plan.features }}</td>
+            <td>{% if plan.is_active %} Active {% else %} Inactive {% endif %}</td>
+            <td>
+                <a href="{% url 'edit_plan' plan.id %}" class="button edit">Edit</a>
+                <a href="{% url 'delete_plan' plan.id %}" class="button delete"
+                   onclick="return confirm('Are you sure you want to delete this plan?');">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">No plans available</td></tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

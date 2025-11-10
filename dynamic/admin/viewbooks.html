@@ -1,0 +1,219 @@
+{% load static %}
+<head>
+  {% load static %}
+<link rel="stylesheet" href="{% static 'css/addbook.css'%}">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      background-attachment: fixed;
+      background-size: cover;
+      min-height: 100vh;
+    }
+
+          .navbar {
+        background-color: #1b1b32;
+        /* background: linear-gradient(to right, #6a11cb, #2575fc); */
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar h1 {
+        font-size: 24px;
+        margin: 0;
+        margin-right: auto; /* Pushes menu to the right */
+      }
+
+      .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      .navbar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        transition: color 0.3s;
+      }
+
+      .navbar ul li a:hover {
+        color: #ffcc00;
+      }
+        
+    .container {
+      max-width: 300px;
+      margin: 80px auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      background-color: #004080;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #003060;
+    }
+
+    @media (max-width: 500px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .container {
+        margin: 30px;
+      }
+    }
+    .btn {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  transition: 0.3s;
+  cursor: pointer;
+  border: none;
+}
+
+/* Read button (Green) */
+.read-btn {
+  background-color: #28a745;
+  color: white;
+}
+.read-btn:hover {
+  background-color: #218838;
+}
+
+/* Delete button (Red) */
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+.delete-btn:hover {
+  background-color: #c82333;
+}
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <h1>📚 BookSculpt</h1>
+    <ul>
+      <!-- <li><a href="#">HOME</a></li> -->
+      <li><a href="/adminHome/">BACK</a></li>
+    </ul>
+  </div>
+  <meta charset="UTF-8">
+  <title>viewbooks</title>
+
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+  <!-- Your Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/viewbooks.css' %}">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Owl Carousel JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+</head>
+
+<link rel="stylesheet" href="{% static 'css/viewbooks.css' %}">
+<center><h2 class="line-title" style="text-align: center;">DIVE INTO A STORY</h2></center>
+<section class="game-section">
+  <!-- <h2 class="line-title">DIVE INTO A STORY</h2> -->
+  <div class="owl-carousel custom-carousel owl-theme">
+    {% for m in books %}
+  <div class="item active" style="background-image: url({{m.cover_image.url}}); background-size:cover;">
+    <div class="item-desc">
+      <h3>{{m.title}}</h3>
+      <h4>{{m.author}}</h4>
+      <p>{{m.description}}</p>
+      
+      <!-- Read button -->
+     <a href="{% url 'readbook' m.id %}" class="btn read-btn">View</a>
+
+
+      <!-- Delete button -->
+      <a href="{% url 'delete_book' m.id %}" class="btn delete-btn" onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
+
+    </div>
+  </div>
+{% endfor %}
+
+  </div>
+  </div>
+</section>
+<script>
+    $(".custom-carousel").owlCarousel({
+  autoWidth: true,
+  loop: true
+});
+$(document).ready(function () {
+  $(".custom-carousel .item").click(function () {
+    $(".custom-carousel .item").not($(this)).removeClass("active");
+    $(this).toggleClass("active");
+  });
+});
+
+</script>

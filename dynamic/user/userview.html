@@ -1,0 +1,107 @@
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <title>books</title>
+
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+  <!-- Your Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/viewbooks.css' %}">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Owl Carousel JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<style>
+   body {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      background-attachment: fixed;
+      background-size: cover;
+      min-height: 100vh;
+    }
+
+  .navbar {
+        background-color: #1b1b32;
+        /* background: linear-gradient(to right, #6a11cb, #2575fc); */
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar h1 {
+        font-size: 24px;
+        margin: 0;
+        margin-right: auto; /* Pushes menu to the right */
+      }
+
+      .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      .navbar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        transition: color 0.3s;
+      }
+
+      .navbar ul li a:hover {
+        color: #ffcc00;
+      }
+</style>
+
+</head>
+<!-- Navigation Bar -->
+  <div class="navbar">
+    <h1>📚 BookSculpt</h1>
+    <ul>
+      <!-- <li><a href="#">HOME</a></li> -->
+      <li><a href="/userHome/">BACK</a></li>
+    </ul>
+  </div>
+  <meta charset="UTF-8">
+  <title>viewbooks</title>
+
+<link rel="stylesheet" href="{% static 'css/viewbooks.css' %}">
+<section class="game-section">
+  <h2   class="line-title">DIVE INTO A STORY</h2>
+  <div class="owl-carousel custom-carousel owl-theme">
+    {% for m in books %}
+    <div class="item active" style="background-image: url({{m.cover_image.url}}); background-size:cover;">
+      <div class="item-desc">
+        <h3>{{m.title}}</h3>
+        <h4>{{m.author}}</h4>
+        <p>{{m.description}}</p>
+        <a href="{% url 'readbook' m.id %}">
+         <button ><center>Read Now</center></button>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  </div>
+</section>
+
+
+<script>
+    $(".custom-carousel").owlCarousel({
+  autoWidth: true,
+  loop: true
+});
+$(document).ready(function () {
+  $(".custom-carousel .item").click(function () {
+    $(".custom-carousel .item").not($(this)).removeClass("active");
+    $(this).toggleClass("active");
+  });
+});
+
+</script>
+
+

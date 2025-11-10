@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Recommendations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #004080;
+      padding: 12px 20px;
+      color: white;
+    }
+
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar ul li {
+      margin-left: 20px;
+    }
+
+    .navbar ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffcc00;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #004080;
+    }
+
+    /* Form styling */
+    .search-form {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .search-form input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      min-width: 200px;
+    }
+
+    .search-form button {
+      background: #004080;
+      color: #fff;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background .3s;
+    }
+
+    .search-form button:hover {
+      background: #0066cc;
+    }
+
+    /* Recommendations grid */
+    .recommend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .book-card {
+      background: #fafafa;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform .3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .book-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .book-card img {
+      width: 120px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .book-card h3 {
+      margin: 0 0 8px;
+      color: #333;
+    }
+
+    .book-card p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">📚 BookSculpt</div>
+    <ul>
+      <li><a href="/userHome/">Home</a></li>
+      <li><a href="{% url 'view_plans' %}">Plans</a></li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <h2>Book Recommendations</h2>
+
+    <!-- Search Form -->
+    <form method="post" class="search-form">
+      {% csrf_token %}
+      <input type="text" name="genre" placeholder="Enter favorite genre">
+      <input type="text" name="author" placeholder="Enter favorite author">
+      <button type="submit">Get Recommendations</button>
+    </form>
+
+    <!-- Recommendations -->
+    {% if recommendations %}
+      <div class="recommend-grid">
+        {% for book in recommendations %}
+        <div class="book-card">
+          {% if book.cover_image %}
+            <img src="{{ book.cover_image.url }}" alt="{{ book.title }}">
+          {% else %}
+            <img src="{% static 'images/default-book.png' %}" alt="No cover">
+          {% endif %}
+          <h3>{{ book.title }}</h3>
+          <p><b>Author:</b> {{ book.author }}</p>
+          <p><b>Genre:</b> {{ book.category }}</p>
+          <p>{{ book.description|truncatewords:20 }}</p>
+          <a href="{% url 'readbook' book.id %}">
+         <button ><center>Read Now</center></button>
+        </a>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p style="text-align:center; color:#777;">No recommendations yet. Try searching!</p>
+    {% endif %}
+  </div>
+</body>
+</html>

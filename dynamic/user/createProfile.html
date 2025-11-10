@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #93aacc;
+      margin: 0;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #9900ff;
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar .logo {
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar ul li {
+      margin-left: 25px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffdd57;
+    }
+
+    /* Container */
+    .container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      width: 400px;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    .container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    input:focus {
+      border-color: #007bff;
+    }
+
+    button {
+      background: #007bff;
+      color: #fff;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+    .button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.view-button {
+  display: inline-block;
+  background: #28a745;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  text-align: center;
+  line-height: 20px;
+  flex: 1;
+}
+
+.button-group button {
+  flex: 1;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">📚BookSculpt</div>
+    <ul>
+      <li><a href="">Back</a></li>
+
+    </ul>
+  </div>
+
+  <!-- Profile Form -->
+  <div class="container">
+    <h2>Create/Edit your profile</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <label>First Name:</label>
+      <input type="text" name="first_name" value="{{ request.user.first_name }}">
+
+      <label>Last Name:</label>
+      <input type="text" name="last_name" value="{{ request.user.last_name }}">
+
+      <label>Email:</label>
+      <input type="email" name="email" value="{{ request.user.email }}">
+      
+      <div class="button-group">
+        <button type="submit">Save</button>
+        <a href="profile" class="view-button">View</a>
+      </div>
+
+    </form>
+  </div>
+</body>
+</html>

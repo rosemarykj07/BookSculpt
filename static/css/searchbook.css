@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #80deea);
+}
+
+/* 🌟 Navbar */
+.navbar {
+    background: #004d66;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    margin-left: 25px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.navbar ul li a:hover {
+    background: #ffcc00;
+    color: #004d66;
+}
+
+/* 🔍 Search Results */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
+
+.search-results {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.search-container h2 {
+    text-align: center;
+    color: #004080;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+
+.search-results ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.search-results .book-item {
+    font-size: 18px;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 6px;
+    padding: 8px 12px;
+    border-left: 4px solid #004080;
+    background: #f9f9f9;
+    border-radius: 6px;
+    transition: transform 0.2s;
+}
+
+.search-results .book-item:hover {
+    transform: translateX(5px);
+    background: #eef7ff;
+}
+
+.search-results .book-read {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+    padding-left: 15px;
+}
+
+.search-results .no-books {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin: 20px 0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
